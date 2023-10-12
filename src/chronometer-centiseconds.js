@@ -1,49 +1,56 @@
 class Chronometer {
   constructor() {
-    this.currentTime = 0
-    this.intervalId = 0
+    this.currentTime = 0;
+    this.intervalId = null;
   }
 
   start(printTimeCallback) {
     this.intervalId = setInterval(() => {
-      this.currentTime += 1
-      if (printTimeCallback){
-        printTimeCallback()
-      }else {}
-    },10)
+      this.currentTime += 1;
+      if (printTimeCallback) {
+        printTimeCallback();
+      } else {
+      }
+    }, 10);
   }
 
-  //   setTimeout(() => {
-  //     setInterval(() => {
-  //       this.currentTime += 200
-  //     }, 2000)
-  // })
-
   getMinutes() {
-    // ... your code goes here
+    let minPassed = Math.floor(this.currentTime / 6000);
+    return minPassed;
   }
 
   getSeconds() {
-    // ... your code goes here
+    let secondsPassed = Math.floor((this.currentTime / 100) % 60);
+    return secondsPassed;
   }
 
   getCentiseconds() {
-    // ... your code goes here
+    return Math.floor(this.currentTime % 100);
   }
 
   computeTwoDigitNumber(value) {
-    // ... your code goes here
+    if (value > 10) {
+      return String(value);
+    } else {
+      return "0" + String(value);
+    }
   }
 
   stop() {
-    // ... your code goes here
+    clearInterval(this.intervalId);
   }
 
   reset() {
-    // ... your code goes here
+    this.currentTime = 0;
   }
 
   split() {
-    // ... your code goes here
+    let min = this.computeTwoDigitNumber(this.getMinutes()); // String
+    let sec = this.computeTwoDigitNumber(this.getSeconds()); // String
+    let centiSec = this.computeTwoDigitNumber(this.getCentiseconds()); // String
+
+    let validFormat = `${min}:${sec}.${centiSec}`;
+
+    return validFormat;
   }
 }
